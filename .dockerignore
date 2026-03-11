@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.db
+.env
+.venv/
+build/
+dist/
+# ignore accidental copies
+lets try - Copy/
+.github/
+.DS_Store

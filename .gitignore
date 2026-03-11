@@ -1,0 +1,10 @@
+
+.qodo
+__pycache__/
+*.pyc
+*.db
+.env
+.venv/
+# ignore duplicate workspace folder
+lets try - Copy/
+
