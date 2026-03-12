@@ -467,4 +467,15 @@ def main():
 
 # Entry point of the script
 if __name__ == "__main__":
-    main()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] in ["--auto", "-a", "--generate"]:
+        initialize_database()
+        branches = get_branches()
+        if branches:
+            result = genetic_algorithm(branches, generations=100)
+            if result:
+                schedule, professor_schedules = result
+                print("\nTimetable generated successfully!")
+                print_timetable(schedule)
+    else:
+        main()
