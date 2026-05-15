@@ -1,3 +1,13 @@
+---
+title: Genetic Algorithm Timetable Generator
+emoji: 🗓️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+app_port: 7860
+---
+
 # Timetable Generator
 
 This repository contains a Python-based timetable generation system for educational institutes. It includes:
