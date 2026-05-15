@@ -80,8 +80,10 @@ def copy_schedule(schedule):
         }
     elif isinstance(schedule, list):
         return [cls.copy() for cls in schedule]
+    elif hasattr(schedule, 'copy'):
+        return schedule.copy()
     else:
-        raise TypeError("Unsupported schedule format")
+        raise TypeError(f"Unsupported schedule format: {type(schedule)}")
 
 
 
