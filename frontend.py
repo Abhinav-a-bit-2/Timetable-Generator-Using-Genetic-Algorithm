@@ -65,9 +65,12 @@ def get_branches():
         return []
 
 # UI Theme and Layout
-with gr.Blocks(theme=gr.themes.Soft(), title="Timetable Generator") as demo:
+with gr.Blocks(title="Timetable Generator") as demo:
     gr.Markdown("# 🗓️ Institutional Timetable Generator")
     
+    # ... (rest of the blocks code remains same)
+    # I'll just replace the whole block for safety
+
     with gr.Row():
         stats_box = gr.Textbox(value=get_stats(), label="System Stats", interactive=False)
         refresh_btn = gr.Button("🔄 Refresh Stats", variant="secondary", size="sm")
@@ -110,4 +113,4 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Timetable Generator") as demo:
     refresh_btn.click(get_stats, outputs=[stats_box])
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    demo.launch(server_name="0.0.0.0", server_port=7860, theme=gr.themes.Soft())
