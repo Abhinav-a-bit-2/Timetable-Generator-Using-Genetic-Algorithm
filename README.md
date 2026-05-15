@@ -81,7 +81,3 @@ The only external Python dependency is:
 - `tabulate` (used for pretty-printing tables in the console)
 
 All other modules are part of the Python standard library.
-
-## License
-
-Place your preferred open-source license here.

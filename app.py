@@ -99,6 +99,67 @@ async def get_timetable():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/initialize")
+async def init_db():
+    try:
+        initialize_database()
+        return {"status": "success", "message": "Database initialized with sample data"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/stats")
+async def get_stats():
+    try:
+        with sqlite3.connect("timetable.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM branches")
+            branches = cursor.fetchone()[0]
+            cursor.execute("SELECT COUNT(*) FROM courses")
+            courses = cursor.fetchone()[0]
+            cursor.execute("SELECT COUNT(*) FROM teachers")
+            teachers = cursor.fetchone()[0]
+            return {
+                "branches": branches,
+                "courses": courses,
+                "teachers": teachers
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/courses")
+async def add_new_course(course_code: str, course_name: str, branch_name: str):
+    try:
+        from db_operations import add_course
+        success = add_course(course_code, course_name, branch_name)
+        if success:
+            return {"status": "success", "message": f"Course {course_code} added"}
+        else:
+            raise HTTPException(status_code=400, detail="Failed to add course")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/courses/{course_code}")
+async def remove_course(course_code: str):
+    try:
+        from db_operations import delete_course
+        success = delete_course(course_code)
+        if success:
+            return {"status": "success", "message": f"Course {course_code} deleted"}
+        else:
+            raise HTTPException(status_code=400, detail="Failed to delete course")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/branches")
+async def list_branches():
+    try:
+        with sqlite3.connect("timetable.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT branch_name FROM branches")
+            return [r[0] for r in cursor.fetchall()]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=7860)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

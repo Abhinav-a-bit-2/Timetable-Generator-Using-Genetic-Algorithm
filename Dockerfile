@@ -10,7 +10,10 @@ COPY . .
 # Initialize the database during build or startup
 RUN python main.py --auto
 
+# Give execution permissions to the script
+RUN chmod +x run.sh
+
 ENV PYTHONUNBUFFERED=1
 EXPOSE 7860
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["./run.sh"]
